@@ -271,8 +271,11 @@ FF_CFG_FLAGS="$FF_CFG_FLAGS --target-os=linux"
 FF_CFG_FLAGS="$FF_CFG_FLAGS --enable-pic"
 # FF_CFG_FLAGS="$FF_CFG_FLAGS --disable-symver"
 
+
 if [ "$FF_ARCH" = "x86" ]; then
     FF_CFG_FLAGS="$FF_CFG_FLAGS --disable-asm"
+elif [ "$FF_ARCH" = "armv7a" ];then
+    FF_CFG_FLAGS="$FF_CFG_FLAGS --disable-x86asm"
 else
     # Optimization options (experts only):
     FF_CFG_FLAGS="$FF_CFG_FLAGS --enable-asm"
@@ -314,7 +317,7 @@ echo "--------------------"
 echo "[*] compile ffmpeg"
 echo "--------------------"
 cp config.* $FF_PREFIX
-make $FF_MAKE_FLAGS > /dev/null
+make $FF_MAKE_FLAGS -j4 > /dev/null
 make install
 mkdir -p $FF_PREFIX/include/libffmpeg
 cp -f config.h $FF_PREFIX/include/libffmpeg/config.h

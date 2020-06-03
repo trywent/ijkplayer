@@ -26,6 +26,7 @@ UNAME_S=$(uname -s)
 UNAME_SM=$(uname -sm)
 echo "build on $UNAME_SM"
 
+export ANDROID_NDK=/home/bsp/Android/android-ndk-r14b
 echo "ANDROID_NDK=$ANDROID_NDK"
 
 if [ -z "$ANDROID_NDK" ]; then
@@ -68,7 +69,7 @@ case "$IJK_NDK_REL" in
         IJK_NDK_REL=$(grep -o '^Pkg\.Revision.*=[0-9]*.*' $ANDROID_NDK/source.properties 2>/dev/null | sed 's/[[:space:]]*//g' | cut -d "=" -f 2)
         echo "IJK_NDK_REL=$IJK_NDK_REL"
         case "$IJK_NDK_REL" in
-            11*|12*|13*|14*)
+            11*|12*|13*|14*|18*)
                 if test -d ${ANDROID_NDK}/toolchains/arm-linux-androideabi-4.9
                 then
                     echo "NDKr$IJK_NDK_REL detected"
